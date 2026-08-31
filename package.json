@@ -1,0 +1,20 @@
+{
+  "name": "chatfuel-apps",
+  "private": true,
+  "description": "The app catalog for npx @chatfuel/wizard --app <slug> — micro-SaaS presets over the wizard's shell",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chatfuel-lab/chatfuel-apps.git"
+  },
+  "bugs": { "url": "https://github.com/chatfuel-lab/chatfuel-apps/issues" },
+  "homepage": "https://github.com/chatfuel-lab/chatfuel-apps#readme",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "validate": "node scripts/validate.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1"
+  }
+}

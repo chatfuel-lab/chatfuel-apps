@@ -1,0 +1,80 @@
+# The label set, in one reviewable file. .github/workflows/labels.yml applies it.
+
+# --- What kind of thing it is ---------------------------------------------
+- name: bug
+  color: d73a4a
+  description: Something does not do what it says it does
+- name: enhancement
+  color: a2eeef
+  description: A new capability, or a better version of one
+- name: app-proposal
+  color: c2e0c6
+  description: An app someone wants in the catalog
+- name: documentation
+  color: 0075ca
+  description: Wrong, missing or unclear docs
+- name: question
+  color: d876e3
+  description: A question rather than a change
+- name: security
+  color: b60205
+  description: Not for vulnerability reports - those go through private reporting
+
+# --- Where it lives --------------------------------------------------------
+- name: 'app: instagram-comments'
+  color: 1d76db
+  description: The Comments for Instagram preset
+- name: 'area: validator'
+  color: 1d76db
+  description: scripts/validate.mjs and what it enforces
+- name: 'area: schema'
+  color: 1d76db
+  description: app.schema.json, kept identical with the wizard's copy
+- name: 'area: docs'
+  color: 1d76db
+  description: The authoring guide and the READMEs
+- name: 'area: ci'
+  color: 1d76db
+  description: Workflows and gates
+
+# --- What has to happen next ----------------------------------------------
+- name: needs triage
+  color: fbca04
+  description: Nobody has looked at it yet
+- name: needs info
+  color: fbca04
+  description: Waiting on the reporter
+- name: needs repro
+  color: fbca04
+  description: Believable, not yet reproduced
+- name: blocked
+  color: 5319e7
+  description: Waiting on something outside this repository
+- name: upstream
+  color: 5319e7
+  description: The fix belongs to the wizard or the Chatfuel API
+
+# --- Who it is for ---------------------------------------------------------
+- name: good first issue
+  color: 7057ff
+  description: Small, self-contained, and someone will help
+- name: help wanted
+  color: 008672
+  description: Open to anyone who wants it
+
+# --- Housekeeping ----------------------------------------------------------
+- name: dependencies
+  color: 0366d6
+  description: Opened by Dependabot
+- name: pinned
+  color: ededed
+  description: Never marked stale
+- name: roadmap
+  color: c5def5
+  description: Planned, tracked, not stale
+- name: duplicate
+  color: cfd3d7
+  description: Already reported somewhere else
+- name: wontfix
+  color: ffffff
+  description: A decision, not an oversight

@@ -1,0 +1,54 @@
+name: Bug report
+description: An app scaffolded wrong, or its playbook led the agent astray
+labels: ['bug']
+body:
+  - type: dropdown
+    id: app
+    attributes:
+      label: Which app
+      options:
+        - instagram-comments
+        - other / not app-specific
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-you-expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        npx @chatfuel/wizard --app instagram-comments
+        # then …
+    validations:
+      required: true
+
+  - type: input
+    id: wizard-version
+    attributes:
+      label: Wizard version
+      placeholder: npx @chatfuel/wizard --version
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Remove your Chatfuel token and any keys before pasting — anything shaped like a token will be treated as compromised.
+      render: shell
+    validations:
+      required: false

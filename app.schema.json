@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "chatfuel-apps/app.schema.json",
+  "title": "Chatfuel app preset manifest",
+  "type": "object",
+  "required": ["id", "name", "tagline", "description", "category", "status", "modules", "brand", "listing"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "description": "Must equal the app's directory name; doubles as the site slug."
+    },
+    "name": { "type": "string", "minLength": 1, "maxLength": 60 },
+    "tagline": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300,
+      "description": "Meta/OG description, one or two sentences."
+    },
+    "category": { "enum": ["instagram", "whatsapp", "facebook", "website", "other"] },
+    "status": {
+      "enum": ["draft", "published"],
+      "description": "The site lists only published apps; the wizard scaffolds drafts too (pre-publish testing)."
+    },
+    "minWizardVersion": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "modules": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+      "description": "Wizard module ids (what --modules takes), not the site's marketing slugs."
+    },
+    "brand": {
+      "type": "object",
+      "required": ["appName"],
+      "additionalProperties": false,
+      "properties": {
+        "appName": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "logo": {
+          "type": "string",
+          "description": "App-dir-relative path, e.g. listing/icon.png. Passed to the wizard's brand step."
+        }
+      }
+    },
+    "env": {
+      "type": "array",
+      "description": "Extra .env lines for the scaffold. Deliberately narrower than module env: no secret, no resolve, no prompt — an app preset must not hook wizard steps or declare secrets.",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+          "default": { "type": "string" },
+          "optional": { "type": "boolean", "default": false }
+        }
+      }
+    },
+    "npmDependencies": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "playbook": {
+      "type": "string",
+      "default": "playbook.md",
+      "description": "App-dir-relative path to the agent build plan."
+    },
+    "listing": {
+      "type": "object",
+      "required": ["icon", "screenshots"],
+      "additionalProperties": false,
+      "properties": {
+        "icon": { "type": "string", "description": "Square PNG, at least 256x256." },
+        "screenshots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["file", "alt"],
+            "additionalProperties": false,
+            "properties": {
+              "file": { "type": "string" },
+              "alt": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "keywords": { "type": "array", "items": { "type": "string" } },
+        "provides": {
+          "type": "array",
+          "description": "What the app itself ships (overlay modules, product surfaces) — rendered on the site beside the wizard modules, so the install section tells the whole truth.",
+          "items": {
+            "type": "object",
+            "required": ["name", "description"],
+            "additionalProperties": false,
+            "properties": {
+              "name": { "type": "string", "minLength": 1, "maxLength": 60 },
+              "description": { "type": "string", "minLength": 1, "maxLength": 160 }
+            }
+          }
+        }
+      }
+    }
+  },
+  "if": { "properties": { "status": { "const": "published" } } },
+  "then": {
+    "properties": {
+      "listing": {
+        "type": "object",
+        "properties": { "screenshots": { "type": "array", "minItems": 1 } }
+      }
+    }
+  }
+}

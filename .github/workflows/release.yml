@@ -1,0 +1,39 @@
+# A tag becomes a GitHub Release. The catalog has no version number to publish:
+# the wizard clones main at run time, so a merged PR reaches users immediately.
+# A Release here is the announcement channel — a maintainer tags when an app
+# lands or changes materially, and watchers get notified.
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions: {}
+
+jobs:
+  release:
+    name: Publish the release notes
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      # The same gate a pull request passes. A tag is not a promise that it was run.
+      - run: npm run validate
+
+      - uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3.0.2
+        with:
+          name: ${{ github.ref_name }}
+          generate_release_notes: true
+          draft: false

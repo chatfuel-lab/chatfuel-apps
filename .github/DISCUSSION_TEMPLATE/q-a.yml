@@ -1,0 +1,24 @@
+labels: ['question']
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: What are you trying to do?
+      description: The goal, not only the error. The best answer is often a different route.
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: What have you tried?
+      description: Commands, config, and what happened. Redact anything token-shaped.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where
+      options:
+        - Installing an app (the --app run)
+        - An app after scaffolding
+        - Authoring an app of my own
+        - The validator or the schema
+        - Somewhere else

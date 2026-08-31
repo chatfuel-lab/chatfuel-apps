@@ -1,0 +1,36 @@
+{
+  "$schema": "../../app.schema.json",
+  "id": "instagram-comments",
+  "name": "Comments for Instagram",
+  "tagline": "Fixed and keyword-triggered replies to every Instagram comment — public under the post, private in DMs.",
+  "description": "Auto-reply rules for Instagram comments: answer publicly, follow up privately, gate by keywords. Scaffolded into your own repository with accounts built in and a build plan for your coding agent.",
+  "category": "instagram",
+  "status": "published",
+  "minWizardVersion": "0.3.0",
+  "modules": ["auth"],
+  "brand": {
+    "appName": "Comments for Instagram",
+    "logo": "listing/icon.png"
+  },
+  "playbook": "playbook.md",
+  "listing": {
+    "icon": "listing/icon.png",
+    "screenshots": [
+      {
+        "file": "listing/screenshots/01-rules.png",
+        "alt": "Reply rules screen: rule list on the left, keyword trigger with public and private reply editors on the right"
+      },
+      {
+        "file": "listing/screenshots/02-rule-support.png",
+        "alt": "The support-requests rule: keyword trigger with a public reply and a private DM reply"
+      }
+    ],
+    "keywords": ["instagram", "comments", "auto-reply", "keywords", "private reply", "DM"],
+    "provides": [
+      {
+        "name": "Comment rules",
+        "description": "The product screen: fixed and keyword rules with public and private replies — plain React in your repository."
+      }
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+body:
+  - type: textarea
+    id: built
+    attributes:
+      label: What did you build?
+      description: Screenshots welcome. So is a link, if it is public.
+    validations:
+      required: true
+  - type: input
+    id: app
+    attributes:
+      label: Which app you started from
+      placeholder: 'instagram-comments'
+  - type: textarea
+    id: changed
+    attributes:
+      label: What did you have to change?
+      description: >
+        The most useful part for everyone else — where the playbook fell short,
+        what the agent got wrong, what the overlay was missing.

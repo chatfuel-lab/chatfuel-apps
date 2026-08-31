@@ -1,0 +1,37 @@
+name: App proposal
+description: An app you want in the catalog — to request, or to build yourself
+labels: ['app-proposal']
+body:
+  - type: input
+    id: name
+    attributes:
+      label: The app, in one line
+      placeholder: 'Comments for Instagram: fixed and keyword-triggered replies to every comment'
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-it-does
+    attributes:
+      label: What it does
+      description: The job it does for its user, and which channel it lives on.
+    validations:
+      required: true
+
+  - type: textarea
+    id: modules
+    attributes:
+      label: Wizard modules it would build on
+      description: Best guess is fine — `npx @chatfuel/wizard --help` lists them.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: who-builds
+    attributes:
+      label: Who builds it
+      options:
+        - I want to build it myself (see docs/authoring.md)
+        - I am requesting it
+    validations:
+      required: true

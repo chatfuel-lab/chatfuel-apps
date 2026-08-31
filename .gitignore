@@ -1,0 +1,9 @@
+# Dependencies — the only build artifact this repo has.
+node_modules/
+
+# Coding-agent working files never land in the repository.
+/.claude/
+/CLAUDE.md
+
+# OS noise.
+.DS_Store
