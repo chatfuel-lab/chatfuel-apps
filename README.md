@@ -22,7 +22,7 @@ Every app in [the catalog](#the-catalog) below has its copy-paste command.
 
 ## What an app is
 
-An app is not a fork of the [wizard](https://github.com/chatfuel-lab/chatfuel-wizard)'s
+An app is not a fork of the [wizard](https://github.com/chatfuel-lab/wizard)'s
 template — it is a **preset over it**:
 
 - a set of wizard modules to install,
@@ -88,7 +88,7 @@ coding agent can follow it verbatim.
 
 - `apps/<slug>` — one directory per app: manifest, listing copy, playbook, overlay, assets.
 - `app.schema.json` — the manifest schema; the copy the wizard validates against lives in
-  [its repository](https://github.com/chatfuel-lab/chatfuel-wizard/blob/main/packages/module-kit/app.schema.json)
+  [its repository](https://github.com/chatfuel-lab/wizard/blob/main/packages/module-manifest/app.schema.json)
   and the two are kept identical.
 - `scripts/validate.mjs` — schema plus the semantic rules ajv cannot express; the only gate.
 - `docs/` — the authoring guide.

@@ -26,7 +26,7 @@ In scope:
 Out of scope:
 
 - the wizard runtime itself — report to
-  [chatfuel-wizard](https://github.com/chatfuel-lab/chatfuel-wizard/security), which has its
+  [wizard](https://github.com/chatfuel-lab/wizard/security), which has its
   own scope
 - Chatfuel's hosted API and product
 - a user's own modifications to their scaffolded app
