@@ -40,7 +40,8 @@
         "appName": { "type": "string", "minLength": 1, "maxLength": 60 },
         "logo": {
           "type": "string",
-          "description": "App-dir-relative path, e.g. listing/icon.png. Passed to the wizard's brand step."
+          "pattern": "^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*\\.[A-Za-z0-9]+$",
+          "description": "App-dir-relative path, e.g. listing/icon.png. Passed to the wizard's brand step. An app-dir-relative path. No dots outside the extension, so it cannot climb out of the app directory - the same shape module.schema.json requires of a module's paths. The wizard also refuses a path that leaves the directory or is a symlink when it reads one (insideProblem); this is the half a catalog's own CI can refuse before anybody fetches it."
         }
       }
     },
@@ -60,19 +61,32 @@
     },
     "npmDependencies": {
       "type": "object",
-      "additionalProperties": { "type": "string" }
+      "propertyNames": { "maxLength": 214, "pattern": "^(@[a-z0-9][a-z0-9._-]*/)?[a-z0-9][a-z0-9._-]*$" },
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 100,
+        "pattern": "^(?:[a-z][a-z0-9-]*|[~^<>=]{0,2}[0-9xX*][0-9A-Za-z.+-]*(?:\\s*(?:\\|\\|)?\\s*[~^<>=]{0,2}[0-9xX*][0-9A-Za-z.+-]*)*)$",
+        "description": "A semver range or a dist-tag, and nothing else — the same rule module.schema.json states for a module embed, for the same reason. The wizard joins name and version into one npm install argument and runs it, with install scripts, inside the user's own project, so a value carrying \":\" or \"/\" — file:, link:, portal:, workspace:, npm:, git+ssh://, https://, or a bare user/repo — would name a source the manifest is not allowed to choose. parseAppManifest() in the wizard re-checks both patterns: an npx run reaches no schema."
+      },
+      "description": "Package names the app preset adds to the scaffold's package.json, mapped to version ranges."
     },
     "playbook": {
       "type": "string",
+      "pattern": "^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*\\.md$",
       "default": "playbook.md",
-      "description": "App-dir-relative path to the agent build plan."
+      "description": "App-dir-relative path to the agent build plan. No dots outside the extension, so it cannot climb out of the app directory."
     },
     "listing": {
       "type": "object",
       "required": ["icon", "screenshots"],
       "additionalProperties": false,
       "properties": {
-        "icon": { "type": "string", "description": "Square PNG, at least 256x256." },
+        "icon": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*\\.[A-Za-z0-9]+$",
+          "description": "Square PNG, at least 256x256. An app-dir-relative path. No dots outside the extension, so it cannot climb out of the app directory - the same shape module.schema.json requires of a module's paths. The wizard also refuses a path that leaves the directory or is a symlink when it reads one (insideProblem); this is the half a catalog's own CI can refuse before anybody fetches it."
+        },
         "screenshots": {
           "type": "array",
           "items": {
@@ -80,7 +94,7 @@
             "required": ["file", "alt"],
             "additionalProperties": false,
             "properties": {
-              "file": { "type": "string" },
+              "file": { "type": "string", "pattern": "^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*\\.[A-Za-z0-9]+$" },
               "alt": { "type": "string", "minLength": 1 }
             }
           }

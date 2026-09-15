@@ -43,11 +43,19 @@ Hard rules, enforced by the validator here and by the wizard again at scaffold t
 - Regular files only. No symlinks, no `..` segments, nothing that resolves outside the
   scaffold.
 - Wizard-owned files may never be replaced — the deny list is `OVERLAY_DENY` in
-  [`scripts/validate.mjs`](../scripts/validate.mjs): `package.json`, `.gitignore`,
-  `_gitignore`, `index.html`, `vite.config.ts`, `tsconfig.json`, `server/entry.ts`,
-  `api/chatfuel.ts`, `src/index.css`, `src/modules/index.ts`, `src/modules/navGroups.tsx`,
-  plus anything under `.env*`, `node_modules/`, `.git/`. Changes to those belong in the
-  playbook, where the user's own agent applies them in the open.
+  [`scripts/validate.mjs`](../scripts/validate.mjs), matched case-insensitively:
+  - scaffold files: `package.json`, `.gitignore`, `_gitignore`, `index.html`,
+    `vite.config.ts`, `vite.config.js`, `vite.config.mjs`, `vite.server.config.ts`,
+    `tsconfig.json`, `server/entry.ts`, `api/chatfuel.ts`, `src/index.css`,
+    `src/modules/index.ts`, `src/modules/navGroups.tsx`;
+  - package manager instructions and lockfiles: `.npmrc`, `.yarnrc`, `.yarnrc.yml`,
+    `.pnpmfile.cjs`, `pnpm-workspace.yaml`, `.node-version`, `.nvmrc`, `package-lock.json`,
+    `npm-shrinkwrap.json`, `pnpm-lock.yaml`, `yarn.lock`, `bun.lockb`;
+  - scripts run with the token in `.env`: `scripts/deploy-vercel.mjs`,
+    `scripts/connect-git.mjs`, `scripts/codegen.mjs`;
+  - plus anything under `.env*`, `node_modules/`, `.git/`, `patches/`, `scripts/deploy/`.
+
+  Changes to those belong in the playbook, where the user's own agent applies them in the open.
 - The whole overlay stays under 2 MB. A preset is an overlay, not a fork.
 
 What belongs in an overlay: a product module's React tree (see

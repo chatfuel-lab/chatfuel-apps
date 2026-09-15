@@ -11,23 +11,58 @@ import Ajv from 'ajv/dist/2020.js';
 const root = resolve(fileURLToPath(import.meta.url), '../..');
 const appsDir = join(root, 'apps');
 
-// Wizard-owned files an overlay may never replace. Must match OVERLAY_DENY in
-// https://github.com/chatfuel-lab/chatfuel-wizard/blob/main/packages/wizard/src/scaffold/appOverlay.ts
+// Wizard-owned files an overlay may never replace. Must match OVERLAY_DENY and
+// OVERLAY_DENY_PREFIXES in
+// https://github.com/chatfuel-lab/wizard/blob/main/packages/wizard/src/scaffold/appOverlay.ts
 // — the wizard enforces the same list at scaffold time; this copy fails the PR earlier.
+// The reasoning behind each entry lives next to the wizard's copy.
 const OVERLAY_DENY = [
+  // What the scaffold's own transforms write.
   'package.json',
   '.gitignore',
   '_gitignore',
   'index.html',
+  // Every config file vite resolves, not just the one the template ships.
   'vite.config.ts',
+  'vite.config.js',
+  'vite.config.mjs',
+  'vite.server.config.ts',
   'tsconfig.json',
   'server/entry.ts',
   'api/chatfuel.ts',
   'src/index.css',
   'src/modules/index.ts',
   'src/modules/navGroups.tsx',
+  // Package manager instructions: the install runs right after the overlay lands.
+  '.npmrc',
+  '.yarnrc',
+  '.yarnrc.yml',
+  '.pnpmfile.cjs',
+  'pnpm-workspace.yaml',
+  '.node-version',
+  '.nvmrc',
+  // Lockfiles decide which bytes the install resolves to; the scaffold ships none.
+  'package-lock.json',
+  'npm-shrinkwrap.json',
+  'pnpm-lock.yaml',
+  'yarn.lock',
+  'bun.lockb',
+  // Scripts the wizard and the playbook run with the token already in .env.
+  'scripts/deploy-vercel.mjs',
+  'scripts/connect-git.mjs',
+  'scripts/codegen.mjs',
 ];
-const OVERLAY_DENY_PREFIXES = ['.env', 'node_modules/', '.git/'];
+const OVERLAY_DENY_PREFIXES = ['.env', 'node_modules/', '.git/', 'patches/', 'scripts/deploy/'];
+
+// Case-insensitive, like the wizard: on macOS and Windows `.NPMRC` lands on `.npmrc`.
+const DENIED = new Set(OVERLAY_DENY.map((name) => name.toLowerCase()));
+const overlayDenies = (rel) => {
+  const name = rel.toLowerCase();
+  if (DENIED.has(name)) return true;
+  return OVERLAY_DENY_PREFIXES.some(
+    (prefix) => name === prefix.replace(/\/$/, '') || name.startsWith(prefix.toLowerCase()),
+  );
+};
 
 const SCREENSHOT_MAX_BYTES = 1024 * 1024;
 const OVERLAY_MAX_BYTES = 2 * 1024 * 1024;
@@ -119,10 +154,7 @@ for (const slug of slugs) {
         fail(slug, `overlay/${rel} is a symlink; overlays must contain regular files only`);
         continue;
       }
-      if (
-        OVERLAY_DENY.includes(rel) ||
-        OVERLAY_DENY_PREFIXES.some((p) => rel === p.replace(/\/$/, '') || rel.startsWith(p))
-      ) {
+      if (overlayDenies(rel)) {
         fail(slug, `overlay/${rel} replaces a wizard-owned file; change it via the playbook instead`);
       }
       total += lstatSync(path).size;
