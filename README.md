@@ -40,6 +40,7 @@ thumb throughout: **preset data in the overlay, behavior in the playbook.**
 | App | Category | Install |
 | --- | --- | --- |
 | [Comments for Instagram](apps/instagram-comments/README.md) | Instagram | `npx @chatfuel/wizard --app instagram-comments` |
+| [Inbox Analytics](apps/inbox-analytics/README.md) | Other | `npx @chatfuel/wizard --app inbox-analytics` |
 
 ## Directory contract
 

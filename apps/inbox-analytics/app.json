@@ -1,0 +1,72 @@
+{
+  "$schema": "../../app.schema.json",
+  "id": "inbox-analytics",
+  "name": "Inbox Analytics",
+  "tagline": "Inbound vs outbound message volume over time across every channel, and a zip export of every conversation.",
+  "description": "Crawls your Chatfuel inbox into your own Supabase project, charts inbound and outbound messages per minute, hour, day, week or month, and exports every conversation as JSON, readable transcripts and a CSV index in one zip.",
+  "category": "other",
+  "status": "published",
+  "minWizardVersion": "0.4.1",
+  "modules": [
+    "auth",
+    "channels"
+  ],
+  "brand": {
+    "appName": "Inbox Analytics",
+    "logo": "listing/icon.png"
+  },
+  "npmDependencies": {
+    "fflate": "^0.8.2"
+  },
+  "playbook": "playbook.md",
+  "listing": {
+    "icon": "listing/icon.png",
+    "screenshots": [
+      {
+        "file": "listing/screenshots/01-overview.png",
+        "alt": "Overview: sync card reading conversations, and the messages-over-time chart with inbound and outbound lines per day over 30 days"
+      },
+      {
+        "file": "listing/screenshots/02-overview-hourly.png",
+        "alt": "Overview with the hour bucket over 7 days: inbound and outbound messages per hour in Europe/Berlin"
+      },
+      {
+        "file": "listing/screenshots/03-figures.png",
+        "alt": "Summary tiles — messages, active and new conversations, messages per conversation, median first response, median response, share answered by automation — above the channel, sender and busiest-hours cards"
+      },
+      {
+        "file": "listing/screenshots/04-breakdowns.png",
+        "alt": "Breakdown cards: messages by channel, outbound by sender with shares, and messages by hour of day with the busiest hour"
+      },
+      {
+        "file": "listing/screenshots/05-export.png",
+        "alt": "Export view: conversations and messages in the window, the Download zip button, and what the zip contains"
+      }
+    ],
+    "keywords": [
+      "analytics",
+      "inbox",
+      "export",
+      "messages",
+      "whatsapp",
+      "instagram",
+      "facebook",
+      "tiktok",
+      "zip"
+    ],
+    "provides": [
+      {
+        "name": "Overview",
+        "description": "Inbound vs outbound message counts per minute, hour, day, week or month, with summary metrics and breakdowns — plain React in your repository."
+      },
+      {
+        "name": "Export",
+        "description": "Every conversation as JSON and a readable transcript, plus contacts.csv and manifest.json, zipped in the browser."
+      },
+      {
+        "name": "Sync routes",
+        "description": "A server-side crawler that stores message history in your Supabase project, behind the same auth gate as every other request."
+      }
+    ]
+  }
+}
