@@ -24,6 +24,9 @@
 - name: 'app: instagram-comments'
   color: 1d76db
   description: The Comments for Instagram preset
+- name: 'app: inbox-analytics'
+  color: 1d76db
+  description: The Inbox Analytics preset
 - name: 'area: validator'
   color: 1d76db
   description: scripts/validate.mjs and what it enforces

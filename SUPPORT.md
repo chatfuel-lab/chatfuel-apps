@@ -14,7 +14,7 @@ rotate.
 ## The wizard itself misbehaved
 
 That is the other repository:
-[chatfuel-lab/chatfuel-wizard](https://github.com/chatfuel-lab/chatfuel-wizard/issues) — the
+[chatfuel-lab/wizard](https://github.com/chatfuel-lab/wizard/issues) — the
 line is "the run failed" (wizard) versus "the run succeeded but the app is wrong" (here).
 
 ## You are writing an app and have a question

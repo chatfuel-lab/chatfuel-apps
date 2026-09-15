@@ -31,7 +31,7 @@ Commit messages carry three things: the problem, the reasoning, what changed.
 
 - **One app per PR.** Changes to `app.schema.json` or `scripts/validate.mjs` get their own PR
   — and the schema is kept byte-identical with the wizard's copy
-  ([`packages/module-kit/app.schema.json`](https://github.com/chatfuel-lab/chatfuel-wizard/blob/main/packages/module-kit/app.schema.json)),
+  ([`packages/module-manifest/app.schema.json`](https://github.com/chatfuel-lab/wizard/blob/main/packages/module-manifest/app.schema.json)),
   so a schema change lands in both repositories together.
 - **New `npmDependencies` need a written justification** in the PR description — an app that
   installs a dependency runs that dependency's install scripts on every user's machine.

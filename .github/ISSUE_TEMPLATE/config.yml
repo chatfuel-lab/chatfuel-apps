@@ -7,7 +7,7 @@ contact_links:
     url: https://discord.gg/TmrgcjVqFf
     about: Questions, app authoring help, and showing off what you built.
   - name: The wizard itself misbehaved
-    url: https://github.com/chatfuel-lab/chatfuel-wizard/issues/new/choose
+    url: https://github.com/chatfuel-lab/wizard/issues/new/choose
     about: The run failed — that is the wizard's repository, not the catalog's.
   - name: Report a vulnerability
     url: https://github.com/chatfuel-lab/chatfuel-apps/security/advisories/new
