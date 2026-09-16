@@ -1,0 +1,83 @@
+{
+  "$schema": "../../app.schema.json",
+  "id": "ownyourproduct",
+  "name": "OwnYourProduct",
+  "tagline": "A salon's booking business under your own name: five-step set-up, comments answered with your prices, team, money.",
+  "description": "A salon's booking business scaffolded into your repository: five-step set-up with prices anchored per country, Instagram comments answered with a fixed reply and a Direct quoting your prices, owner, manager and specialist levels, and money by service and specialist. Spanish, Portuguese, English.",
+  "category": "instagram",
+  "status": "draft",
+  "minWizardVersion": "0.4.0",
+  "modules": [
+    "bookings",
+    "contacts",
+    "knowledge-base",
+    "automations",
+    "channels",
+    "auth",
+    "admin"
+  ],
+  "npmDependencies": {
+    "libphonenumber-js": "^1.11.0"
+  },
+  "brand": {
+    "appName": "OwnYourProduct",
+    "logo": "listing/icon.png"
+  },
+  "playbook": "playbook.md",
+  "listing": {
+    "icon": "listing/icon.png",
+    "screenshots": [
+      {
+        "file": "listing/screenshots/01-setup-services.png",
+        "alt": "Set-up, step 3 of 5: services pre-filled for nails and lashes with durations and prices anchored to Chile, ready to edit"
+      },
+      {
+        "file": "listing/screenshots/02-setup-review.png",
+        "alt": "Set-up, step 5 of 5: the review before publishing — business, services, hours and team about to be written into Bookings and the Knowledge Base"
+      },
+      {
+        "file": "listing/screenshots/03-knowledge-base.png",
+        "alt": "Knowledge Base overview right after set-up: business profile, eleven services and eight FAQs filled in, readiness score shown"
+      },
+      {
+        "file": "listing/screenshots/04-bookings-services.png",
+        "alt": "Bookings, Services tab: the services created by set-up with their durations and prices"
+      },
+      {
+        "file": "listing/screenshots/05-comment-studio.png",
+        "alt": "Comment Studio: the keyword list, the public reply and the Direct quoting the salon's prices, with the switch to turn the rule on"
+      }
+    ],
+    "keywords": [
+      "salon",
+      "beauty",
+      "nails",
+      "lashes",
+      "bookings",
+      "instagram",
+      "comments",
+      "team",
+      "money",
+      "spanish",
+      "latam"
+    ],
+    "provides": [
+      {
+        "name": "Set-up",
+        "description": "Business, specialities, services with prices anchored per country, hours and team in five steps — written into Bookings and the Knowledge Base, idempotent."
+      },
+      {
+        "name": "Comment Studio",
+        "description": "One keyword rule on Instagram post comments: a fixed public reply and a Direct quoting the salon's prices. No AI; Spanish, Portuguese, English."
+      },
+      {
+        "name": "Team",
+        "description": "Owner, manager and specialist levels over the auth module, e-mail invitations, a specialist tied to her Bookings column."
+      },
+      {
+        "name": "Money",
+        "description": "Revenue by service, specialist and client per period, expenses and supplies, CSV export — computed from the bookings."
+      }
+    ]
+  }
+}
