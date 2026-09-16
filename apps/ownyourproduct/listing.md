@@ -1,6 +1,6 @@
 ## The salon's day, under your own name
 
-A nail or lash studio's Instagram fills with the same two questions under every post — how much, and when. This app is the business behind those questions: a booking calendar customers reach through the channels you connect, a client list, a knowledge base that holds your real prices, and a Comment Studio that answers price-and-time comments with a fixed public reply and a Direct quoting those prices — in Spanish, Portuguese or English.
+A nail or lash studio's Instagram fills with the same two questions under every post — how much, and when. This app is the business behind those questions: a booking calendar customers reach through the channels you connect, a client list, an inbox, a knowledge base that holds your real prices, and a Comment Studio that answers price-and-time comments with a fixed public reply and a Direct quoting those prices — in Spanish, Portuguese or English.
 
 ## Set up in five steps
 
