@@ -1,0 +1,166 @@
+/*
+ * OwnYourProduct salon theme — the product's palette over the toolkit's tokens.
+ *
+ * The toolkit paints every screen from the custom properties in
+ * src/vendor/ui/styles/tokens.css; nothing in a component names a colour. This
+ * file only re-declares those properties, so the toolkit's screens and the
+ * overlay's take the same palette. src/index.css is wizard-owned: the playbook
+ * asks you to add `@import "./theme/salon.css";` there, as the last import.
+ *
+ * Palette: purple accent (#8e3cda) for actions and selection, coral (#f8747d)
+ * for "now" and focus, deep-purple text on soft purple surfaces, 8 px controls,
+ * the system font. Light and dark.
+ */
+
+:root,
+[data-theme='light'] {
+  --color-surface: #faf9fc;
+  --color-surface-raised: #ffffff;
+  --color-surface-sunken: #faf6fe;
+  --color-surface-hover: #f4ecfb;
+  --color-surface-overlay: #ffffff;
+  --color-surface-inverse: #461d6d;
+  --color-translucent: rgb(70 29 109 / 0.05);
+  --color-translucent-strong: rgb(70 29 109 / 0.08);
+
+  --color-border: #e7e1ee;
+  --color-border-strong: #d8cfe3;
+  --color-border-subtle: #f0ecf4;
+
+  --color-text: #461d6d;
+  --color-text-muted: #8b7ea3;
+  --color-text-faint: #b8aecb;
+  --color-text-inverse: #faf6fe;
+
+  --color-accent: #8e3cda;
+  --color-accent-hover: #7c34c2;
+  --color-accent-soft: #f4ecfb;
+  --color-accent-fg: #ffffff;
+  --color-focus: #f8747d;
+
+  --color-row-hover: #faf6fe;
+  --color-row-selected: #f4ecfb;
+  --color-row-selected-hover: #ecdff8;
+  --color-skeleton: #f0ecf4;
+  --color-skeleton-highlight: #faf6fe;
+
+  --color-selection-fill: rgb(142 60 218 / 0.1);
+  --color-selection-stroke: #8e3cda;
+  --color-edge-selected: #8e3cda;
+  --color-handle-active: #8e3cda;
+  --color-bubble-out: #8e3cda;
+  --color-bubble-out-fg: #f4ecfb;
+  --color-run-active: #8e3cda;
+  --color-run-active-soft: #f4ecfb;
+  --color-pipeline-1: #8e3cda;
+  --color-pipeline-6: #f8747d;
+  --color-now: #f8747d;
+  --color-guide: #f8747d;
+
+  --selection-bg: #ecdff8;
+  --elevation-tint: rgb(70 29 109 / 0.08);
+  --elevation-tint-strong: rgb(70 29 109 / 0.12);
+  --elevation-ring: rgb(70 29 109 / 0.06);
+  --hairline-inset: rgb(70 29 109 / 0.04);
+  --hairline-ring: rgb(70 29 109 / 0.08);
+
+  --radius-control: 0.5rem;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-display: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Dark: the same purple, lifted for dark surfaces. Applies when the OS is dark
+   and no theme is pinned, and when the top-bar toggle pins dark. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-surface: #15101c;
+    --color-surface-raised: #1c1526;
+    --color-surface-sunken: #120d19;
+    --color-surface-hover: #241a30;
+    --color-surface-overlay: #1c1526;
+    --color-surface-inverse: #faf6fe;
+    --color-translucent: rgb(243 236 250 / 0.05);
+    --color-translucent-strong: rgb(243 236 250 / 0.08);
+    --color-border: #2e2440;
+    --color-border-strong: #3a2d4e;
+    --color-border-subtle: #241a30;
+    --color-text: #f3ecfa;
+    --color-text-muted: #b8aecb;
+    --color-text-faint: #8b7ea3;
+    --color-text-inverse: #15101c;
+    --color-accent: #a866ea;
+    --color-accent-hover: #b77cf0;
+    --color-accent-soft: #2a1d3d;
+    --color-accent-fg: #ffffff;
+    --color-focus: #f8747d;
+    --color-row-hover: #1c1526;
+    --color-row-selected: #2a1d3d;
+    --color-row-selected-hover: #33244a;
+    --color-skeleton: #241a30;
+    --color-skeleton-highlight: #2e2440;
+    --color-selection-fill: rgb(168 102 234 / 0.18);
+    --color-selection-stroke: #a866ea;
+    --color-edge-selected: #a866ea;
+    --color-handle-active: #a866ea;
+    --color-bubble-out: #8e3cda;
+    --color-bubble-out-fg: #f4ecfb;
+    --color-run-active: #a866ea;
+    --color-run-active-soft: #2a1d3d;
+    --color-pipeline-1: #a866ea;
+    --color-pipeline-6: #f8747d;
+    --color-now: #f8747d;
+    --color-guide: #f8747d;
+    --selection-bg: #3a2d4e;
+    --elevation-tint: rgb(0 0 0 / 0.35);
+    --elevation-tint-strong: rgb(0 0 0 / 0.5);
+    --elevation-ring: rgb(243 236 250 / 0.06);
+    --hairline-inset: rgb(243 236 250 / 0.04);
+    --hairline-ring: rgb(243 236 250 / 0.08);
+  }
+}
+
+[data-theme='dark'] {
+  --color-surface: #15101c;
+  --color-surface-raised: #1c1526;
+  --color-surface-sunken: #120d19;
+  --color-surface-hover: #241a30;
+  --color-surface-overlay: #1c1526;
+  --color-surface-inverse: #faf6fe;
+  --color-translucent: rgb(243 236 250 / 0.05);
+  --color-translucent-strong: rgb(243 236 250 / 0.08);
+  --color-border: #2e2440;
+  --color-border-strong: #3a2d4e;
+  --color-border-subtle: #241a30;
+  --color-text: #f3ecfa;
+  --color-text-muted: #b8aecb;
+  --color-text-faint: #8b7ea3;
+  --color-text-inverse: #15101c;
+  --color-accent: #a866ea;
+  --color-accent-hover: #b77cf0;
+  --color-accent-soft: #2a1d3d;
+  --color-accent-fg: #ffffff;
+  --color-focus: #f8747d;
+  --color-row-hover: #1c1526;
+  --color-row-selected: #2a1d3d;
+  --color-row-selected-hover: #33244a;
+  --color-skeleton: #241a30;
+  --color-skeleton-highlight: #2e2440;
+  --color-selection-fill: rgb(168 102 234 / 0.18);
+  --color-selection-stroke: #a866ea;
+  --color-edge-selected: #a866ea;
+  --color-handle-active: #a866ea;
+  --color-bubble-out: #8e3cda;
+  --color-bubble-out-fg: #f4ecfb;
+  --color-run-active: #a866ea;
+  --color-run-active-soft: #2a1d3d;
+  --color-pipeline-1: #a866ea;
+  --color-pipeline-6: #f8747d;
+  --color-now: #f8747d;
+  --color-guide: #f8747d;
+  --selection-bg: #3a2d4e;
+  --elevation-tint: rgb(0 0 0 / 0.35);
+  --elevation-tint-strong: rgb(0 0 0 / 0.5);
+  --elevation-ring: rgb(243 236 250 / 0.06);
+  --hairline-inset: rgb(243 236 250 / 0.04);
+  --hairline-ring: rgb(243 236 250 / 0.08);
+}
