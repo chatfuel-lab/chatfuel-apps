@@ -24,7 +24,24 @@ in the switch before verifying.
 
 Work through the steps in order and verify each before the next.
 
-## 1. Register the Comment Studio and Set-up modules
+## 1. Theme and the inbox
+
+The overlay ships the salon theme in `src/theme/salon.css`: the product's
+palette (purple actions, coral for "now" and focus, deep-purple text on soft
+purple surfaces), 8 px controls and the system font, light and dark. Every
+screen, the toolkit's and the overlay's, paints from the same tokens, so this
+one file restyles the whole app. `src/index.css` is wizard-owned, so add the
+import there yourself: `@import "./theme/salon.css";` as the LAST import,
+after the `@chatfuel:end-ui-css` line.
+
+The inbox is the toolkit's own `livechat` module; the preset installs it and
+the overlay adds nothing to it.
+
+Verify: the primary button is purple (#8e3cda) and the calendar's "now" line
+coral; pinning dark in the top bar keeps a purple accent on dark surfaces;
+`/livechat` opens the inbox.
+
+## 2. Register the Comment Studio and Set-up modules
 
 The wizard generates `src/modules/index.ts` from the modules it installed, so
 the overlay could not add to it (wizard-owned). You can:
@@ -43,7 +60,7 @@ ES selected the screen renders "Tu negocio" with a "Continuar" button;
 `/comment-studio` renders the header "Comment Studio" with the status tag
 "Apagado" and the language switch ES / PT / EN.
 
-## 2. Run the modules' tests and the typecheck
+## 3. Run the modules' tests and the typecheck
 
 The overlay ships its own tests: Comment Studio's write plan, runner contract,
 read-back and generated texts; Set-up's publish plan, its idempotent runner
@@ -53,7 +70,7 @@ which the manifest declares and the wizard installs.
 Verify: `npx vitest run src/modules/comment-studio src/modules/salon-onboarding`
 reports every test passed, and `npm run check` is clean.
 
-## 3. Set a salon up with Set-up
+## 4. Set a salon up with Set-up
 
 Sign in and open `/salon-onboarding`. Enter the business (name, country,
 phone, address), pick the specialities, keep or edit the suggested services
@@ -67,7 +84,7 @@ hours and a cancellation rule in the additional instructions; Bookings settings
 show appointment confirmation switched on. Pressing "Guardar y empezar" again
 creates nothing twice.
 
-## 4. Team levels: apply the app migration and register Team
+## 5. Team levels: apply the app migration and register Team
 
 The overlay ships `supabase/app-migrations/0019_staff_access.sql`: two levels
 of staff access on the auth module's own tables. A Manager is an admin; a
@@ -87,7 +104,7 @@ can invite "ana@salon.cl" as a Specialist linked to a Bookings specialist and
 copy the invitation link, and the auth module's Team page still opens and
 still lists the same people.
 
-## 5. Specialists see only their own calendar
+## 6. Specialists see only their own calendar
 
 `cf_my_workspace` now returns `specialist_id` for a member. In the bookings
 module, when the signed-in membership carries a `specialist_id`, preselect
@@ -102,7 +119,7 @@ current specialist) differs from it.
 Verify: sign in as the invited specialist; the calendar opens on her column
 and the switcher is gone; a manager still sees every column.
 
-## 6. Connect Instagram and turn Comment Studio on
+## 7. Connect Instagram and turn Comment Studio on
 
 Sign in, connect the salon's Instagram account in Channels, enter two or
 three services with prices in the Knowledge Base, then open Comment Studio:
@@ -116,7 +133,7 @@ Direct, link-in-bio and story sources are off; back in Comment Studio the tag
 reads "Activo". Comment "precio?" on a post from another account: the public
 reply lands under the comment and the Direct arrives.
 
-## 7. Money: apply the app migration and register Money
+## 8. Money: apply the app migration and register Money
 
 The overlay ships `supabase/app-migrations/0030_money.sql`: two tables next
 to the auth schema, expenses and supply purchases, readable and writable by
@@ -133,7 +150,7 @@ the same month; an expense added on the "Gastos" tab lowers "Ganancia neta"
 by its amount and appears in the CSV download; a specialist signed in sees
 only the "managers only" notice.
 
-## 8. Mail: recovery through Supabase, invitations through Resend
+## 9. Mail: recovery through Supabase, invitations through Resend
 
 Sign-in, verification and recovery e-mails are the auth module's and come from
 Supabase Auth; point its SMTP at Resend in the Supabase dashboard (Auth →
@@ -152,15 +169,29 @@ Verify: `npx vitest run server/mail` passes; with the route mounted and the
 key set, an invitation from Team arrives in the mailbox with the salon's
 name and a link that opens the app's invite page.
 
-## 9. Sign-up lands in Set-up
+## 10. Sign-up lands in Set-up
 
 A new salon that signs up through the auth module gets its bot from the
-wizard's sign-up flow and is sent to `/`, which step 1 made Set-up. Keep it
+wizard's sign-up flow and is sent to `/`, which step 2 made Set-up. Keep it
 that way: the first minute must be "your services, your hours, done", not a
 tour of seven modules.
 
 Verify: sign up with a fresh e-mail; the first screen is Set-up on "Tu
 negocio".
+
+## 11. Put it online
+
+The wizard does not deploy. From the app directory run `npm run deploy`: it
+puts the app on Vercel through the Vercel CLI (a Vercel login is asked once,
+the free tier is enough, no Git repository needed) and prints the production
+URL. Then in Supabase, Authentication → URL configuration, add that origin to
+the redirect allowlist, or sign-in links keep pointing at localhost. If the
+Vercel team has Deployment Protection on, turn it off for this project or the
+salon's staff will meet a Vercel login wall.
+
+Verify: the production URL opens the sign-in screen; signing in lands on
+Set-up (or the calendar once the salon is set up); a booking made in the
+calendar shows up in the Chatfuel dashboard for the same bot.
 
 ## Out of scope
 
