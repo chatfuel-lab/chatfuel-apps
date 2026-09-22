@@ -5,7 +5,7 @@
   "tagline": "Ask a question. Explore your messages. Save findings with evidence.",
   "description": "Explore message groups, inspect source evidence and save findings with next actions. Includes configurable classification, file and recent-inbox import, a scenario map and optional server-side Jev analysis.",
   "category": "other",
-  "status": "draft",
+  "status": "published",
   "minWizardVersion": "0.4.2",
   "modules": [
     "auth",
