@@ -1,0 +1,53 @@
+{
+  "$schema": "../../app.schema.json",
+  "id": "signal-lab",
+  "name": "Signal Lab",
+  "tagline": "Ask a question. Explore your messages. Save findings with evidence.",
+  "description": "Explore message groups, inspect source evidence and save findings with next actions. Includes configurable classification, file and recent-inbox import, a scenario map and optional server-side Jev analysis.",
+  "category": "other",
+  "status": "draft",
+  "minWizardVersion": "0.4.2",
+  "modules": [
+    "auth",
+    "channels",
+    "livechat"
+  ],
+  "brand": {
+    "appName": "Signal Lab",
+    "logo": "listing/icon.png"
+  },
+  "playbook": "playbook.md",
+  "listing": {
+    "icon": "listing/icon.png",
+    "screenshots": [
+      {
+        "file": "listing/screenshots/01-message-map.png",
+        "alt": "Signal Lab in the SDK build: vertical message playback beside interactive topic clusters."
+      },
+      {
+        "file": "listing/screenshots/02-evidence.png",
+        "alt": "WhatsApp payment evidence filtered to repeated failures, with an observation and next action ready to save."
+      }
+    ],
+    "keywords": [
+      "jev",
+      "classification",
+      "messages",
+      "analytics"
+    ],
+    "provides": [
+      {
+        "name": "Interactive message map",
+        "description": "Explore message groups, filter sources and inspect original messages and conversation context."
+      },
+      {
+        "name": "Your messages and rules",
+        "description": "Import messages, discover repeated wording, edit classifiers and save findings with evidence and next actions."
+      },
+      {
+        "name": "Optional Jev analysis",
+        "description": "Server-side TypeSafe adapter with explicit per-run consent, SDK authentication and workspace checks."
+      }
+    ]
+  }
+}

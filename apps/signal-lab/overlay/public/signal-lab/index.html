@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090e1c"><meta name="description" content="Turn messages, comments and feedback into useful groups. Define your own categories and explore every Jev decision.">
+  <title>Signal Lab — message insights</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./flow-stage.css">
+  <script type="module" src="./signal-app.mjs"></script>
+</head>
+<body>
+  <div id="signal-stage"></div>
+  <div id="workbench" hidden>
+  <header class="topbar">
+    <button id="flow-return" class="flow-return">← Live map</button><a class="brand" href="./" aria-label="Signal Lab home"><span class="mark" aria-hidden="true">◌</span>signal<span>lab</span><span class="byline">with Jev</span></a>
+    <div class="top-actions"><button id="tour-open" class="button tour-button">▶ Play demo</button><span class="connection" id="connection">Checking connection</span><button id="import-open" class="button">Add messages</button><button id="try-open" class="button primary">Test a message <span aria-hidden="true">↗</span></button></div>
+  </header>
+  <main class="workspace">
+    <aside class="sidebar">
+      <div class="sidebar-title">Workspace <span class="tiny-dot"></span></div>
+      <button id="demo-load" class="dataset-button"><span class="dataset-icon">▦</span><span><strong id="dataset-name">Mixed messages</strong><small id="dataset-description">128 synthetic messages</small></span></button>
+      <label class="select-label" for="preset">Sort messages by</label><select id="preset"></select>
+      <button class="text-button" id="settings-open">Your categories & rules <span>↗</span></button>
+      <div class="sidebar-divider"></div>
+      <nav class="lenses" aria-label="Filter messages">
+        <button data-lens="all" class="active"><span>◌</span>All messages<b></b></button>
+        <button data-lens="next"><span>↗</span>Prioritize<b></b></button>
+        <button data-lens="human"><span>♧</span>Human review<b></b></button>
+        <button data-lens="uncertain"><span>≈</span>Low confidence<b></b></button>
+        <button data-lens="pending"><span>◷</span>Not analyzed<b></b></button>
+      </nav>
+      <div class="policy"><div><label for="threshold">Confidence threshold</label><output id="threshold-value">70%</output></div><input id="threshold" type="range" min="30" max="99" value="70"><p>Below this, a person reviews the decision.</p></div>
+      <div class="sidebar-bottom"><button class="button full" id="export-open">Export results <span>↓</span></button><button class="text-button" id="about-open">How this works</button><p>DMs. Comments. Feedback.<br>Your rules apply to all of them.</p></div>
+    </aside>
+    <section class="map-panel" aria-label="Message explorer">
+      <div class="map-heading"><div><span class="eyebrow">A CLASSIFIER FOR YOUR WORLD</span><h1>Your messages.<br><em>Made clear.</em></h1><p id="map-subtitle">Find the questions. Spot the problems. Collect the ideas.</p></div><div class="count-block"><strong id="message-count">128</strong><span>messages in view</span></div></div>
+      <div class="source-bar"><span>Explore messages from</span><select id="source-filter" aria-label="Filter by source"><option value="">All sources</option></select><button id="groups-reset" class="text-button">Show all groups ↗</button></div><div class="group-strip" id="group-strip" aria-label="Message groups"></div><div class="map-toolbar"><div class="view-tabs" aria-label="Map view"><button data-view="map" aria-pressed="true">Clusters</button><button data-view="priority" aria-pressed="false">Attention</button><button data-view="routes" aria-pressed="false">Queues</button><button data-view="list" aria-pressed="false">Messages</button></div><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Find a message" aria-label="Search messages"></label></div>
+      <div id="analysis-banner" class="analysis-banner" hidden><span id="analysis-copy"></span><button id="analyze-button" class="button primary">Analyze 20</button><button id="stop-button" class="button" hidden>Stop</button></div>
+      <div class="plot" id="plot"><canvas id="map" role="img" aria-label="Interactive message clusters. Use the List view for keyboard access to every message."></canvas><div id="cluster-labels" class="cluster-labels"></div><div id="map-empty" class="empty" hidden>No messages match this view.<button id="clear-filters" class="text-button">Clear filters</button></div><div id="hover-tip" class="hover-tip" hidden></div><button id="fit-view" class="fit-button" title="Reset map filters" aria-label="Reset map filters">⤢</button><div class="plot-note" id="plot-note">Organized by model classification</div></div>
+      <div id="message-list" class="message-list" hidden></div>
+      <div class="legend" id="legend"></div>
+      <footer class="map-footer"><span id="dataset-source">Synthetic messages · recorded Jev responses</span><span><i class="quiet-dot"></i><span id="footer-note">Explore without API calls</span></span></footer>
+    </section>
+    <aside class="inspector" id="inspector" aria-label="Selected message"><div class="inspector-heading"><span>One message. One signal.</span><button class="icon-button" id="next-message" title="Next message" aria-label="Next message">→</button></div><div id="inspector-content"></div></aside>
+  </main>
+  </div>
+  <dialog id="settings-dialog" class="drawer"><form id="settings-form"><div class="dialog-header"><div><span class="small-label">Your classifier</span><h2>Make it your classifier.</h2></div><button type="button" class="icon-button" data-close aria-label="Close settings">×</button></div><div class="dialog-scroll" id="settings-body"></div><div class="dialog-footer"><p id="settings-error" role="alert"></p><button type="button" id="config-export" class="button">Download config</button><button type="button" id="config-load" class="button">Load config</button><input type="file" id="config-file" accept=".json" hidden><button class="button primary" type="submit">Apply changes</button></div></form></dialog>
+  <dialog id="try-dialog"><form id="try-form"><div class="dialog-header"><div><span class="small-label">A real model response</span><h2>Give it something new.</h2></div><button class="icon-button" type="button" data-close aria-label="Close message test">×</button></div><label for="try-text">Your message</label><textarea id="try-text" minlength="3" maxlength="3000" rows="5" required placeholder="A beginner checklist would help. Could you share one?"></textarea><label for="try-context">Business context <span class="muted">optional</span></label><textarea id="try-context" maxlength="3000" rows="2" placeholder="Comments on a tutorial about building a first app."></textarea><p class="help">Sends this message and your classifier to Jev. You choose the categories. Jev suggests where it belongs.</p><p id="try-error" class="form-error" role="alert"></p><div class="dialog-footer"><button class="button primary" id="try-submit">Analyze message</button></div></form></dialog>
+  <dialog id="import-dialog"><div class="dialog-header"><div><span class="small-label">Your data, your questions</span><h2>Bring your own messages.</h2></div><button class="icon-button" data-close aria-label="Close import">×</button></div><div class="import-context"><span>↗ Chatfuel inbox</span><p id="inbox-description">Import a file or paste messages below. Open this app inside Chatfuel SDK to read connected WhatsApp and Instagram conversations.</p><button id="inbox-import" class="button" hidden>Preview recent inbox messages</button></div><label class="drop-zone">↥<strong>Choose a CSV or JSON file</strong><span>Up to 2,000 messages · 5 MB maximum</span><input type="file" id="data-file" accept=".json,.csv"></label><p class="help">CSV needs a <code>text</code> column. Optional: <code>name</code>, <code>channel</code>, <code>context</code>. JSON accepts an array or <code>{"messages": […]}</code>.</p><p class="help">Import stays in this browser tab. Analysis sends only the messages you choose to the configured AI provider.</p><label for="paste-messages">Or paste messages — one per line</label><textarea id="paste-messages" rows="4" maxlength="150000" placeholder="Where is the recording?&#10;The download link is broken.&#10;An audio version would be great."></textarea><button class="button" id="paste-preview">Use pasted messages</button><button class="text-button" id="download-sample">Download example CSV ↓</button><div id="import-preview"></div><p id="import-error" class="form-error" role="alert"></p><div class="dialog-footer"><button id="import-confirm" class="button primary" disabled>Open dataset</button></div></dialog>
+  <dialog id="about-dialog"><div class="dialog-header"><h2>Look inside the decision.</h2><button class="icon-button" data-close aria-label="Close information">×</button></div><p>Signal Lab turns messages into categories, scores and review suggestions. You define the questions. Jev evaluates each message. Your routing rules decide what happens next.</p><p>The demo contains <strong>128 synthetic messages</strong> and saved, real Jev responses. These are model assessments, not ground-truth labels or measured sales outcomes.</p><p>Switching views and changing routing thresholds use saved results. Editing the actual questions marks results as pending until you analyze again.</p><p>Settings are saved on this browser. Imported messages and live results stay in memory until you export them. This workbench suggests routes; it does not send replies or modify your inbox.</p><a class="text-button" href="https://docs.typesafe.ai/introduction" target="_blank" rel="noreferrer">About Jev ↗</a></dialog>
+  <div id="tour-bar" class="tour-bar" hidden><span class="tour-progress" id="tour-progress"></span><span><small id="tour-step"></small><strong id="tour-title"></strong></span><button id="tour-stop" class="button">Stop demo ×</button></div><div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>
